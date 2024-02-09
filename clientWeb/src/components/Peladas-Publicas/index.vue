@@ -17,7 +17,7 @@
           <v-flex
             xs12 sm4 md5
             v-for="pelada of peladas"
-
+            v-bind:key="pelada.id"
           >
 
             <v-card    class="elevation-12">
@@ -52,7 +52,7 @@
 <script>
   import axios from 'axios'
   import Header from './header/header'
-  const url ='http://127.0.0.1:8000/api/peladas/';
+  const url ='http://localhost:8000/api/peladas/';
   export default {
     components:{
        'my-header':Header

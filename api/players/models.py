@@ -14,7 +14,7 @@ class Jogador(models.Model):
         (ESQUERDO, ("Esquerdo")),
     )
     NOTA_CHOICES = tuple([(x, x) for x in range(1, 6)])
-
+    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255, )
     email = models.EmailField('E-mail', unique=True, blank=True, null=True)
     phone_number = models.CharField(verbose_name=("Phone Number"), max_length=16, blank=True, null=True,
@@ -33,12 +33,14 @@ class Jogador(models.Model):
 
 
 class Time(models.Model):
+    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255)
     jogadores = models.ManyToManyField(Jogador, related_name='times')
     pelada = models.ForeignKey('Pelada', related_name='times', on_delete=models.CASCADE)
 
 
 class Partida(models.Model):
+    id = models.AutoField(primary_key=True)
     gols = models.ForeignKey("Gol", on_delete=models.CASCADE)
     times = models.ForeignKey("Time", related_name="partidas", on_delete=models.CASCADE)
 
@@ -50,6 +52,7 @@ class Checkin(models.Model):
         (NA_PELADA, ("Na pelada")),
         (REMOVIDO, ("Removido")),
     )
+    id = models.AutoField(primary_key=True)
     jogador = models.OneToOneField("Jogador", on_delete=models.CASCADE, related_name="checkin")
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, choices=STATUS)
@@ -64,6 +67,7 @@ class HistoricoChecking(models.Model):
         (NA_PELADA, ("Na pelada")),
         (REMOVIDO, ("Removido")),
     )
+    id = models.AutoField(primary_key=True)
     jogador = models.ForeignKey("Jogador", on_delete=models.CASCADE, related_name="historico")
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, choices=STATUS)
@@ -71,6 +75,7 @@ class HistoricoChecking(models.Model):
 
 
 class Pelada(models.Model):
+    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     configuracao = models.OneToOneField('Configuracao', on_delete=models.CASCADE)
     dono = models.ForeignKey(User, on_delete=models.CASCADE, related_name='peladas')
@@ -105,6 +110,7 @@ class Pelada(models.Model):
 
 
 class Gol(models.Model):
+    id = models.AutoField(primary_key=True)
     jogador = models.OneToOneField("Jogador", related_name='gols_jogador', on_delete=models.CASCADE)
     time = models.OneToOneField("Time", related_name='gols_time', on_delete=models.CASCADE)
 
@@ -138,10 +144,11 @@ class Configuracao(models.Model):
         (SEM_SORTEIO, "Sem sorteio"),
         (NIVEL_TECNICO, "Nivel Tecnico")
     )
-    tempos = models.CharField(max_length=1, choices=TEMPOS)
+    id = models.AutoField(primary_key=True)
+    tempos = models.CharField(max_length=2, choices=TEMPOS)
     tempo_duracao = models.TimeField()
     limite_gols = models.CharField(max_length=1, choices=LIMITE_GOLS)
-    qtd_jogadores = models.CharField(max_length=1, choices=QTD_JOGADORES)
+    qtd_jogadores = models.CharField(max_length=2, choices=QTD_JOGADORES)
     tipo_sorteio = models.CharField(max_length=1, choices=TIPO_SORTEIO)
 
 

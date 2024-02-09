@@ -2,6 +2,8 @@ from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
+from rest_framework.decorators import action
+
 
 from players import mixins
 from .models import Pelada, Configuracao, Jogador, Time
@@ -12,8 +14,7 @@ from rest_framework import generics, status, viewsets, exceptions
 from players import permissions
 from .permissions import PublicEndpoint, IsOwnerPelada
 from rest_framework import filters
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.decorators import detail_route
+from django_filters import rest_framework as djangofilters
 from rest_framework import viewsets, authentication, permissions
 
 from django.http import JsonResponse
@@ -123,7 +124,7 @@ class ConfiguracaoList(generics.ListCreateAPIView):
 
 class JogadoresList(generics.ListCreateAPIView):
     filter_backends = (
-        DjangoFilterBackend,
+        djangofilters.DjangoFilterBackend,
         filters.SearchFilter,
         filters.OrderingFilter,
     )
@@ -183,7 +184,7 @@ class PeladaListUser(generics.ListCreateAPIView):
 
 class CreateTimes(viewsets.ViewSet):
 
-    @detail_route(methods=['post'])
+    @action(detail=True, methods=['post'])
     def create_times(self, request, pk=None):
             pelada = self.get_queryset().get(pk=pk)
             if pelada.create_times == True:

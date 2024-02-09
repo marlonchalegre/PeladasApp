@@ -8,7 +8,7 @@ export class Token {
     const headers = {
       'Content-Type': 'application/json',
     };
-    return  axios.post('http://127.0.0.1:8000/api/login',{username,password},{headers:headers});
+    return  axios.post('http://localhost:8000/api/login',{username,password},{headers:headers});
   }
 }
 const USER  = ''

@@ -83,9 +83,9 @@
 
     import Swar from 'sweetalert2'
 
-    const endpoint = 'http://127.0.0.1:8000/api/user-peladas/';
+    const endpoint = 'http://localhost:8000/api/user-peladas/';
 
-    const endpointPelada = 'http://127.0.0.1:8000/api/pelada/';
+    const endpointPelada = 'http://localhost:8000/api/pelada/';
     export default {
 
       components:{
@@ -306,7 +306,7 @@
                 'error'
               )
             }});
-          const endpointDelete = 'http://127.0.0.1:8000/api/jogador/'+item;
+          const endpointDelete = 'http://localhost:8000/api/jogador/'+item;
           const token_export = sessionStorage.getItem("token");
           let authe = {
             headers: {

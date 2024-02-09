@@ -161,9 +161,9 @@
   import {mapState} from 'vuex'
   import router from '../../router/index'
   // import {store} from '../../store'
-  const endpoint = 'http://127.0.0.1:8000/api/user-peladas/';
+  const endpoint = 'http://localhost:8000/api/user-peladas/';
 
-  const endpointPelada = 'http://127.0.0.1:8000/api/pelada/';
+  const endpointPelada = 'http://localhost:8000/api/pelada/';
 
 
 

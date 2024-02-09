@@ -60,7 +60,7 @@ export default {
       return `Bearer ${this.token}`;
     }
 
-  // axios.post('http://127.0.0.1:8000/api/login',{username,password},{headers:headers})
+  // axios.post('http://localhost:8000/api/login',{username,password},{headers:headers})
   //   .then((response) => {
   //           if(response.status == 200){
   //             console.log(response.data.token)

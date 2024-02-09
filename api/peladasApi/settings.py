@@ -16,6 +16,10 @@ import datetime
 from django.conf import settings
 from rest_framework.settings import APISettings
 
+import django
+from django.utils.translation import gettext
+django.utils.translation.ugettext = gettext
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -29,8 +33,11 @@ SECRET_KEY = '*yjogz&wdtlw3a28+)xq2bh7j9-7#*^kkwt6%em$29_k4z_pj#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.30.15.22','192.168.43.84','192.168.0.109', '192.168.0.106']
-
+ALLOWED_HOSTS = ['localhost']
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+]
 
 # Application definition
 
@@ -41,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "corsheaders",
     'rest_framework',
     'rest_framework.authtoken',
     'players',
@@ -68,6 +76,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'peladasApi.urls'

@@ -19,7 +19,7 @@
           <v-flex
             xs12 sm4 md5
             v-for="configuracao of configuracaoList"
-
+            v-bind:key="configuracao.id"
           >
 
             <v-card    hover>
@@ -98,7 +98,7 @@
 <script>
   import Header from './header/header'
   import axios from 'axios'
-  const endpoint = 'http://127.0.0.1:8000/api/configuracao/';
+  const endpoint = 'http://localhost:8000/api/configuracao/';
   export default {
     components:{
       'my-header': Header

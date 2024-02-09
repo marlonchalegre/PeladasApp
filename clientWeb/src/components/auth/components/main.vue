@@ -43,7 +43,7 @@
   // import router from "./router/index";
   import Header from './header/header'
 
-  export default {  
+  export default {
     components:{
         'my-header': Header
     },
@@ -71,7 +71,7 @@
     },
     methods:{
       sigin(){
-         // const endpoint = 'http://127.0.0.1:8000/api/login';
+         // const endpoint = 'http://localhost:8000/api/login';
          //  const headers = {
          //    'Content-Type': 'application/json',
          //  };

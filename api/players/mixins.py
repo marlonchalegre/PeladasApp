@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions, filters
+from django_filters import rest_framework as djangofilters
 
 from players.permissions import IsPelada, IsOwnerPelada
 
@@ -7,7 +8,7 @@ from players.permissions import IsPelada, IsOwnerPelada
 class FilteringAndOrderingMixin(object):
     """Default settings for filtering """
     filter_backends = (
-        DjangoFilterBackend,
+        djangofilters.DjangoFilterBackend,
         filters.SearchFilter,
         filters.OrderingFilter,
     )

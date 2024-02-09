@@ -95,7 +95,7 @@
 
   import Swar from 'sweetalert2'
 
-  const  endpointAddJogador = 'http://127.0.0.1:8000/api/jogadores/';
+  const  endpointAddJogador = 'http://localhost:8000/api/jogadores/';
   export default {
     components:{
       "my-star": Star
@@ -154,7 +154,7 @@
               "rating": this.dados.raiting,
               "pelada": this.getIdRouter
           };
-          axios.post("http://127.0.0.1:8000/api/jogadores/",data,{headers:authe.headers})
+          axios.post("http://localhost:8000/api/jogadores/",data,{headers:authe.headers})
             .then((response)=>{
                 console.log(response);
                 // Swar("sucess","ok");
