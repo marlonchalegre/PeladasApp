@@ -2,6 +2,8 @@ from rest_framework import serializers
 from users.serializers import DonoSerializerDetail
 from .models import Pelada, Configuracao, Jogador, Time
 
+from drf_writable_nested import WritableNestedModelSerializer 
+
 
 
 
@@ -12,7 +14,7 @@ class ConfiguracaoSerializerDetail(serializers.ModelSerializer):
         model = Configuracao
         fields = '__all__'
 
-class PeladaSerializers(serializers.ModelSerializer):
+class PeladaSerializers(WritableNestedModelSerializer, serializers.ModelSerializer):
     configuracao = ConfiguracaoSerializerDetail()
 
     class Meta:

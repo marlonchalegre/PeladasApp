@@ -122,6 +122,7 @@ class Configuracao(models.Model):
         (TEMPO2, ("2 Tempos")),
     )
     LIMITE_GOLS = (
+        ("0", "Sem limite de gols"),
         ("1", "1 GOL"),
         ("2", "2 GOLS"),
         ("3", "3 GOLS"),

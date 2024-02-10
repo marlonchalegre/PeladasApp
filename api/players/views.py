@@ -21,10 +21,7 @@ from django.http import JsonResponse
 
 # Create your views here.
 
-
-
-
-class PeladaViewSet(mixins.FilteringAndOrderingMixin, generics.ListAPIView ):
+class PeladaViewSet(mixins.FilteringAndOrderingMixin, generics.ListCreateAPIView ):
 
     permission_classes = (PublicEndpoint,)
     name = 'pelada-list'
