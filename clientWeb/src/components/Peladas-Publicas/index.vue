@@ -34,7 +34,7 @@
 <script>
 import axios from 'axios'
 import Header from './header/header'
-const url = 'http://localhost:8000/api/peladas/';
+const url = 'api/peladas/';
 export default {
   components: {
     'my-header': Header

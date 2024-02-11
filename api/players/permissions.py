@@ -5,7 +5,7 @@ class IsOwnerPelada(permissions.BasePermission):
 
         if request.method in permissions.SAFE_METHODS:
             True
-        return obj.dono == request.user
+        return obj.admin == request.user
 
 
 class IsPelada(permissions.BasePermission):
@@ -13,7 +13,7 @@ class IsPelada(permissions.BasePermission):
 
         if request.method in permissions.SAFE_METHODS:
             True
-        return obj.pelada.dono == request.user
+        return obj.pelada.admin == request.user
 
 
 
@@ -31,4 +31,4 @@ class IsAuthenticated(permissions.BasePermission):
             if request.method in permissions.SAFE_METHODS:
                 return False
             else:
-                return obj.dono == request.user
+                return obj.admin == request.user

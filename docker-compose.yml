@@ -1,17 +1,17 @@
 version: '3'
 services:
   frontend:
+    hostname: frontend
     build:
       context: ./clientWeb
       dockerfile: Dockerfile
-    ports:
-      - 8080:8080
     volumes:
       - ./clientWeb:/app
     depends_on:
       - backend
 
   backend:
+    hostname: backend
     build:
       context: ./api
       dockerfile: Dockerfile
@@ -19,3 +19,13 @@ services:
       - 8000:8000
     volumes:
       - ./api:/app
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 8080:80
+    depends_on:
+      - frontend
+      - backend

@@ -4,9 +4,7 @@ from django.db.models import Q
 from django.core import validators
 import re
 
-
 # Create your models here.
-
 class Jogador(models.Model):
     DIREITO, ESQUERDO = "D", "E"
     MELHOR_PE = (
@@ -17,20 +15,9 @@ class Jogador(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255, )
     email = models.EmailField('E-mail', unique=True, blank=True, null=True)
-    phone_number = models.CharField(verbose_name=("Phone Number"), max_length=16, blank=True, null=True,
-                                    validators=[validators.RegexValidator(re.compile('^\+\d{13}|\(\d{2}\)[ ]\d{5}-\d{4}$'),
-                                    ("A phone number must be on this format: (99) 99999-9999"), "invalid")])
     rating = models.SmallIntegerField(verbose_name='Nota', choices=NOTA_CHOICES, default=3)
-    pelada = models.ForeignKey('Pelada', related_name='jogadores', on_delete=models.CASCADE)
+    organizacao = models.ForeignKey('Organizacao', related_name='jogadores', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def save(self, *args, **kwargs):
-        jogador = self
-        super(Jogador, self).save()
-        checkin = Checkin.objects.filter(jogador=jogador)
-        if checkin.count() == 0:
-            Checkin.objects.create(jogador=jogador, status="D", pelada=jogador.pelada)
-
 
 class Time(models.Model):
     id = models.AutoField(primary_key=True)
@@ -41,44 +28,38 @@ class Time(models.Model):
 
 class Partida(models.Model):
     id = models.AutoField(primary_key=True)
-    gols = models.ForeignKey("Gol", on_delete=models.CASCADE)
-    times = models.ForeignKey("Time", related_name="partidas", on_delete=models.CASCADE)
+    times = models.ManyToManyField("Time", related_name="partidas")
+    vencedor = models.ForeignKey("Time", related_name="vencedor", on_delete=models.CASCADE)
+    placar = models.CharField(max_length=10)
 
 
-class Checkin(models.Model):
-    DISPONIVEL, NA_PELADA, REMOVIDO = "D", "P", "R"
+class CheckIn(models.Model):
+    INDISPONIVEL, DISPONIVEL, NA_PELADA, FILA_DE_ESPERA = "I","D", "P", "F"
     STATUS = (
+        (INDISPONIVEL, ("Disponivel")),
         (DISPONIVEL, ("Disponivel")),
         (NA_PELADA, ("Na pelada")),
-        (REMOVIDO, ("Removido")),
+        (FILA_DE_ESPERA, ("Removido")),
     )
     id = models.AutoField(primary_key=True)
-    jogador = models.OneToOneField("Jogador", on_delete=models.CASCADE, related_name="checkin")
-    created_at = models.DateTimeField(auto_now_add=True)
+    jogador = models.ForeignKey("Jogador", on_delete=models.CASCADE, related_name="status_partidas")
     status = models.CharField(max_length=1, choices=STATUS)
-    pelada = models.ForeignKey('Pelada', related_name='checkins', on_delete=models.CASCADE)
+    partida = models.ForeignKey("Partida", on_delete=models.CASCADE, related_name="checkins")
 
 
-class HistoricoChecking(models.Model):
-    DISPONIVEL, NA_PELADA, REMOVIDO = "D", "P", "R"
-
-    STATUS = (
-        (DISPONIVEL, ("Disponivel")),
-        (NA_PELADA, ("Na pelada")),
-        (REMOVIDO, ("Removido")),
-    )
+class Organizacao(models.Model):
     id = models.AutoField(primary_key=True)
-    jogador = models.ForeignKey("Jogador", on_delete=models.CASCADE, related_name="historico")
-    created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=1, choices=STATUS)
-    to_status = models.CharField(max_length=1, choices=STATUS)
+    nome = models.CharField(max_length=200)
+    administrador = models.ForeignKey(User, on_delete=models.CASCADE, related_name='peladas')
+    brasao = models.ImageField(upload_to='brasao/', blank=True, null=True)
 
 
 class Pelada(models.Model):
     id = models.AutoField(primary_key=True)
-    nome = models.CharField(max_length=200)
-    configuracao = models.OneToOneField('Configuracao', on_delete=models.CASCADE)
-    dono = models.ForeignKey(User, on_delete=models.CASCADE, related_name='peladas')
+    data = models.DateField()
+    local = models.CharField(max_length=255)
+    configuracao = models.OneToOneField("Configuracao", related_name="pelada", on_delete=models.CASCADE)
+    organizacao = models.ForeignKey("Organizacao", related_name="peladas", on_delete=models.CASCADE)
 
     @property
     def create_times(self):
@@ -108,27 +89,7 @@ class Pelada(models.Model):
             else:
                 return False
 
-
-class Gol(models.Model):
-    id = models.AutoField(primary_key=True)
-    jogador = models.OneToOneField("Jogador", related_name='gols_jogador', on_delete=models.CASCADE)
-    time = models.OneToOneField("Time", related_name='gols_time', on_delete=models.CASCADE)
-
-
 class Configuracao(models.Model):
-    TEMPO1, TEMPO2 = "T1", "T2"
-    TEMPOS = (
-        (TEMPO1, ("1 Tempo")),
-        (TEMPO2, ("2 Tempos")),
-    )
-    LIMITE_GOLS = (
-        ("0", "Sem limite de gols"),
-        ("1", "1 GOL"),
-        ("2", "2 GOLS"),
-        ("3", "3 GOLS"),
-        ("4", "4 GOLS"),
-        ("5", "5 GOLS"),
-    )
     QTD_JOGADORES = (
         ("5", "5 Jogadores"),
         ("6", "6 Jogadores"),
@@ -146,14 +107,5 @@ class Configuracao(models.Model):
         (NIVEL_TECNICO, "Nivel Tecnico")
     )
     id = models.AutoField(primary_key=True)
-    tempos = models.CharField(max_length=2, choices=TEMPOS)
-    tempo_duracao = models.TimeField()
-    limite_gols = models.CharField(max_length=1, choices=LIMITE_GOLS)
     qtd_jogadores = models.CharField(max_length=2, choices=QTD_JOGADORES)
     tipo_sorteio = models.CharField(max_length=1, choices=TIPO_SORTEIO)
-
-
-def add_jogador(jogador):
-    checkin = jogador.checkin
-    checkin.status = Checkin.NA_PELADA
-    checkin.save()

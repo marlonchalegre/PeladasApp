@@ -54,9 +54,9 @@ import Star from 'vue-star-rating'
 
 import Swar from 'sweetalert2'
 
-const endpoint = 'http://localhost:8000/api/user-peladas/'
+const endpoint = 'api/user-peladas/'
 
-const endpointPelada = 'http://localhost:8000/api/pelada/'
+const endpointPelada = 'api/pelada/'
 export default {
   components: {
     'my-header': Header,
@@ -110,7 +110,7 @@ export default {
           Swar('Cancelled', 'Your imaginary file is safe :)', 'error')
         }
       })
-      const endpointDelete = 'http://localhost:8000/api/jogador/' + item
+      const endpointDelete = 'api/jogador/' + item
       const token_export = sessionStorage.getItem('token')
       let authe = {
         headers: {

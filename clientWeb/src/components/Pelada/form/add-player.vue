@@ -33,7 +33,7 @@ import Star from 'vue-star-rating'
 
 import Swar from 'sweetalert2'
 
-const endpointAddJogador = 'http://localhost:8000/api/jogadores/';
+const endpointAddJogador = 'api/jogadores/';
 export default {
   components: {
     "my-star": Star
@@ -87,7 +87,7 @@ export default {
         "rating": this.dados.raiting,
         "pelada": this.getIdRouter
       };
-      axios.post("http://localhost:8000/api/jogadores/", data, { headers: authe.headers })
+      axios.post("api/jogadores/", data, { headers: authe.headers })
         .then((response) => {
           Swar({
             title: 'Sucesso',

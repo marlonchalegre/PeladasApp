@@ -76,7 +76,7 @@
 <script>
 import Header from './header/header'
 import axios from 'axios'
-const endpoint = 'http://localhost:8000/api/configuracao/';
+const endpoint = 'api/configuracao/';
 export default {
   components: {
     'my-header': Header

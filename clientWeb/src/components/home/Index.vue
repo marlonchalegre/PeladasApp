@@ -78,8 +78,8 @@ import router from '../../router/index'
 
 import Swar from 'sweetalert2'
 
-const endpoint = 'http://localhost:8000/api/user-peladas/'
-const endpointPelada = 'http://localhost:8000/api/pelada/'
+const endpoint = 'api/user-peladas/'
+const endpointPelada = 'api/pelada/'
 
 export default {
   components: {
@@ -108,7 +108,7 @@ export default {
   methods: {
     criarPelada() {
       router.push({
-        path: '/pelada/new'
+        path: '/organizacao/new'
       })
     },
     peladaId(id) {

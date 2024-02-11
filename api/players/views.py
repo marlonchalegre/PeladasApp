@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 
 
 from players import mixins
-from .models import Pelada, Configuracao, Jogador, Time
+from .models import Organizacao, Configuracao, Jogador, Time
 from . import serializers
 from rest_framework import generics
 from rest_framework.response import Response
@@ -21,25 +21,23 @@ from django.http import JsonResponse
 
 # Create your views here.
 
-class PeladaViewSet(mixins.FilteringAndOrderingMixin, generics.ListCreateAPIView ):
+class OrganizacaoViewSet(mixins.FilteringAndOrderingMixin, generics.ListCreateAPIView ):
 
     permission_classes = (PublicEndpoint,)
     name = 'pelada-list'
-    serializer_class = serializers.PeladaSerializers
-    model = Pelada
-    filter_fields = ('dono__username',)
+    serializer_class = serializers.OrganizacaoSerializers
+    model = Organizacao
+    filter_fields = ('admin__username',)
     search_fields = ('nome',)
-    queryset = Pelada.objects.all()
-
-  
+    queryset = Organizacao.objects.all()
 
 
-class PeladaDetailViewSet(mixins.IsOwnerPeladaMixin,  generics.RetrieveUpdateDestroyAPIView):
+class OrganizacaoDetailViewSet(mixins.IsOwnerPeladaMixin,  generics.RetrieveUpdateDestroyAPIView):
 
     name = 'pelada-detail'
-    queryset =  Pelada.objects.all()
+    queryset =  Organizacao.objects.all()
     serializer_class = serializers.PeladaSerializerDetail
-    model = Pelada
+    model = Organizacao
 
 class JogadorDetailViewSet(mixins.IsPeladaMixin,generics.RetrieveUpdateDestroyAPIView):
 
@@ -68,9 +66,9 @@ class TimeDetailViewSet(mixins.IsPeladaMixin,generics.RetrieveUpdateDestroyAPIVi
 class PeladaConfiguracaoDetailViewSet(generics.RetrieveUpdateDestroyAPIView):
 
     name = 'configuracao-pelada-detail'
-    queryset =  Pelada.objects.all()
+    queryset =  Organizacao.objects.all()
     serializer_class = serializers.ConfiguracaoSerializerDetail
-    model = Pelada
+    model = Organizacao
 
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -95,7 +93,7 @@ class TimeList(generics.ListCreateAPIView, generics.RetrieveDestroyAPIView):
 
     def list(self, request, *args, **kwargs):
         user = self.request.user
-        times = Time.objects.filter(pelada__dono=user)
+        times = Time.objects.filter(pelada__admin=user)
         return Response(status=status.HTTP_200_OK,
                         data=serializers.TimesSerializerDetail(times, many=True, context={'request': request}).data)
 
@@ -114,8 +112,7 @@ class ConfiguracaoList(generics.ListCreateAPIView):
                         data=({"Warning": "Voce nao esta autenticado"}))
         else:
             user = self.request.user
-            print(self.request)
-            configuracoes = Configuracao.objects.filter(pelada__dono=user)
+            configuracoes = Configuracao.objects.filter(pelada__admin=user)
         return Response(status=status.HTTP_200_OK,
                         data=serializers.ConfiguracaoSerializerDetail(configuracoes, many=True, context={'request': request}).data)
 
@@ -135,48 +132,44 @@ class JogadoresList(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         user = self.request.user
-        queryset = queryset.filter(pelada__dono=user)
+        queryset = queryset.filter(pelada__admin=user)
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True)
-        jogador = Jogador.objects.filter(pelada__dono=user)
+        jogador = Jogador.objects.filter(pelada__admin=user)
         return Response(serializer.data)
 
-    
-
-
-
-class PeladaListUser(generics.ListCreateAPIView):
+class OrganizacaoListUser(generics.ListCreateAPIView):
     authentication = (authentication.SessionAuthentication)
-    serializer_class = serializers.PeladaSerializers
-    queryset = Pelada.objects.all()
+    serializer_class = serializers.OrganizacaoSerializers
+    queryset = Organizacao.objects.all()
     def list(self, request, *args, **kwargs):
         if request.user.is_anonymous:
              return Response(status=status.HTTP_401_UNAUTHORIZED,
                         data=({"Warning": "Voce nao esta autenticado"}))
         else:
             user = self.request.user
-            peladas = Pelada.objects.filter(dono=user)
+            organizacoes = Organizacao.objects.filter(administrador=user)
         return Response(status=status.HTTP_200_OK,
-                        data=serializers.PeladaSerializers(peladas, many=True, context={'request': request}).data)
+                        data=serializers.OrganizacaoSerializers(organizacoes, many=True, context={'request': request}).data)
 
 
 
     def validate(self, data):
         errors = {}
-        dono = data.get('dono')
+        admin = data.get('admin')
 
-        if self.request.user != dono:
+        if self.request.user != admin:
             errors['error'] = 'O usuario não pode criar'
             raise serializers.ValidationError(errors)
 
         return data
 
     def perform_create(self, serializer):
-        serializer.save(dono=self.request.user)
+        serializer.save(admin=self.request.user)
 
 
 class CreateTimes(viewsets.ViewSet):
@@ -190,5 +183,5 @@ class CreateTimes(viewsets.ViewSet):
                 return Response({"status":"Times ja criados ou sua solicitacao possui erro"},status=status.HTTP_401_UNAUTHORIZED)
 
     def get_queryset(self):
-        qs = Pelada.objects.all()
+        qs = Organizacao.objects.all()
         return qs

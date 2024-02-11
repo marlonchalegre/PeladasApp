@@ -36,8 +36,9 @@ class UserViewSet(generics.RetrieveUpdateDestroyAPIView):
 def login(request):
     username = request.data.get("username")
     password = request.data.get("password")
+
     if username is None or password is None:
-        return Response({'error': 'Please provide both username and password'},
+        return Response({'error': f'Please provide both username {username} and password {password}'},
                         status=HTTP_400_BAD_REQUEST)
     user = authenticate(username=username, password=password)
     if not user:

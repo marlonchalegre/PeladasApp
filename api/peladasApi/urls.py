@@ -19,7 +19,7 @@ from players.views import *
 
 from django.contrib import admin
 from django.urls import path, include
-from players.views import PeladaConfiguracaoDetailViewSet,PeladaViewSet, PeladaDetailViewSet,TimeDetailViewSet ,ConfiguracaoDetailViewSet, PeladaListUser, JogadorDetailViewSet
+from players.views import PeladaConfiguracaoDetailViewSet,OrganizacaoViewSet, OrganizacaoDetailViewSet,TimeDetailViewSet ,ConfiguracaoDetailViewSet, OrganizacaoListUser, JogadorDetailViewSet
 from users import views as views_user
 from rest_framework_swagger.views import get_swagger_view
 # from players.views import
@@ -30,9 +30,9 @@ schema_view = get_swagger_view(title='Pelada API')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/login', views_user.login),
-    path('api/peladas/', PeladaViewSet.as_view()),
-    path('api/user-peladas/', PeladaListUser.as_view()),
-    path('api/pelada/<int:pk>', PeladaDetailViewSet.as_view(), name='pelada-detail'),
+    path('api/organizacao/', OrganizacaoViewSet.as_view()),
+    path('api/user-peladas/', OrganizacaoListUser.as_view()),
+    path('api/pelada/<int:pk>', OrganizacaoDetailViewSet.as_view(), name='pelada-detail'),
     path('api/configuracao/<int:pk>', ConfiguracaoDetailViewSet.as_view(), name='configuracao-detail'),
     path('api/pelada/<int:pk>/configuracao', PeladaConfiguracaoDetailViewSet.as_view(), name='configuracao-pelada-detail'),
     path('api/jogador/<int:pk>', JogadorDetailViewSet.as_view(), name='jogador-detail'),

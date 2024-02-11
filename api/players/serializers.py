@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from users.serializers import DonoSerializerDetail
-from .models import Pelada, Configuracao, Jogador, Time
+from users.serializers import AdminSerializerDetail
+from .models import Organizacao, Configuracao, Jogador, Time, Pelada
 
 from drf_writable_nested import WritableNestedModelSerializer 
 
@@ -12,6 +12,11 @@ from drf_writable_nested import WritableNestedModelSerializer
 class ConfiguracaoSerializerDetail(serializers.ModelSerializer):
     class Meta:
         model = Configuracao
+        fields = '__all__'
+
+class OrganizacaoSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Organizacao
         fields = '__all__'
 
 class PeladaSerializers(WritableNestedModelSerializer, serializers.ModelSerializer):
@@ -38,8 +43,8 @@ class PeladaSerializerDetail(serializers.ModelSerializer):
     jogadores = JogadoresSerializerDetail(many=True, read_only=True)
     # times = TimesSerializerDetail(many=True, read_only=True)
     # configuracao = ConfiguracaoSerializerDetail(many=False)
-    dono = DonoSerializerDetail()
+    admin = AdminSerializerDetail()
 
     class Meta:
-        model = Pelada
+        model = Organizacao
         exclude = ('configuracao',)

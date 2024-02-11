@@ -33,12 +33,14 @@ SECRET_KEY = '*yjogz&wdtlw3a28+)xq2bh7j9-7#*^kkwt6%em$29_k4z_pj#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost','backend']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://127.0.0.1:8080",
+    "http://backend:8000"
 ]
 
+CSRF_TRUSTED_ORIGINS = ['http://backend:8000']
 # Application definition
 
 INSTALLED_APPS = [
@@ -61,8 +63,6 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated', )
