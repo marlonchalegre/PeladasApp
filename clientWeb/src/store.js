@@ -1,11 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
+import { createStore } from 'vuex'
 import Token from './services/token'
-import SessionStorage from './services/session-storage'
-import router from './router/index'
-
-Vue.use(Vuex)
 
 const userName = window.sessionStorage.getItem('username')
 const userEmail = window.sessionStorage.getItem('email')
@@ -23,7 +17,7 @@ const actions = {
     Token.acessToken(username, password)
   }
 }
-export default new Vuex.Store({
+export default createStore({
   state,
   getters: {},
   mutations,

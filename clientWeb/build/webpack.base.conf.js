@@ -4,11 +4,11 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+const { VueLoaderPlugin } = require('vue-loader')
+
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
-
-
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -18,17 +18,9 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
-  resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
-    }
-  },
+  plugins: [new VueLoaderPlugin()],
   module: {
     rules: [
       {
@@ -67,16 +59,19 @@ module.exports = {
       }
     ]
   },
-  node: {
-    // prevent webpack from injecting useless setImmediate polyfill because Vue
-    // source contains it (although only uses it if it's native).
-    setImmediate: false,
-    // prevent webpack from injecting mocks to Node native modules
-    // that does not make sense for the client
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
+  resolve: {
+    fallback: {
+      setImmediate: false,
+      dgram: false,
+      fs: false,
+      net: false,
+      tls: false,
+      child_process: false
+    },
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      // vue$: 'vue/dist/vue.esm.js',
+      '@': path.resolve(__dirname, '..', 'src')
+    }
   }
 }

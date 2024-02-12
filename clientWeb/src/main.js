@@ -1,42 +1,39 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
+import { createApp } from 'vue'
+
 import App from './App'
 import router from './router'
-import Vuetify from 'vuetify'
+import { createVuetify } from 'vuetify'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import store from './store'
-import Vuex from 'vuex'
-
-
 import StarRating from 'vue-star-rating'
 
-Vue.component('star-rating', StarRating);
-// import Swal from 'sweetalert2'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
-// Vue.use(StarRating);
-// Vue.use(Swal);
-Vue.use(VueAxios, axios);
-Vue.use(Vuetify);
-Vue.config.productionTip = false;
-Vue.use(Vuex);
-/* eslint-disable no-new */
+const app = createApp(App)
+const vuetify = createVuetify({
+  ssr: true,
+  components,
+  directives
+})
 
-// Vue.http.headers.common['Access-Control-Allow-Origin'] = true;
-// axios.http.headers.common['Access-Control-Allow-Origin'] = '*';
+app.component('star-rating', StarRating)
+app.use(VueAxios, axios)
+app.use(vuetify)
+app.use(store)
+app.use(router)
+
+app.config.productionTip = false
+
 window.axios = {
-  'Accept': 'application/json',
+  Accept: 'application/json',
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*'
-};
-new Vue({
+}
 
-  store,
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-});
+app.mount('#app')
