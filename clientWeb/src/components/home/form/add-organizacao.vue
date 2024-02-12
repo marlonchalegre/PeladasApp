@@ -9,8 +9,8 @@
 
     </v-toolbar>
     <v-container fluid fill-height>
-      <v-layout align-center justify-center>
-        <v-flex xs12 sm8 md4>
+      <v-row align-center justify-center>
+        <v-col xs12 sm8 md4>
           <v-form v-model="valid">
             <v-text-field v-model="dados.name" :rules="nameRules" :counter="10" label="Name" required></v-text-field>
             <v-file-input v-model="dados.image" :rules="[v => !!v || 'Imagem é obrigatória', v => validateImageSize(v)]"
@@ -19,8 +19,8 @@
           <v-btn dark color="red" style="color:white" @click="postData()">
             Adicionar
           </v-btn>
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>

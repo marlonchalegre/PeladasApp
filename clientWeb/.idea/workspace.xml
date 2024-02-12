@@ -24,7 +24,7 @@
               <caret line="163" column="61" lean-forward="true" selection-start-line="163" selection-start-column="61" selection-end-line="163" selection-end-column="61" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="e#4121#4146#0" expanded="true" />
               </folding>
             </state>
@@ -38,7 +38,7 @@
               <caret line="167" column="17" selection-start-line="160" selection-start-column="14" selection-end-line="167" selection-end-column="17" />
               <folding>
                 <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#v-btn#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,8 +124,8 @@
               <caret line="93" column="35" lean-forward="true" selection-start-line="93" selection-start-column="35" selection-end-line="93" selection-end-column="35" />
               <folding>
                 <element signature="n#style#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#v-btn#0;n#v-card-actions#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#v-btn#0;n#v-card-actions#0;n#v-card#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -462,8 +462,8 @@
           <caret line="19" column="83" selection-start-line="19" selection-start-column="78" selection-end-line="19" selection-end-column="83" />
           <folding>
             <element signature="n#style#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#v-btn#0;n#v-card-actions#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#v-btn#0;n#v-card-actions#0;n#v-card#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -477,7 +477,7 @@
           <caret line="46" column="27" lean-forward="true" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
           <folding>
             <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#v-btn#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -517,7 +517,7 @@
           <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
           <folding>
             <element signature="n#style#0;n#div#1;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -780,7 +780,7 @@
           <caret line="167" column="17" selection-start-line="160" selection-start-column="14" selection-end-line="167" selection-end-column="17" />
           <folding>
             <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#v-btn#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#v-btn#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -820,8 +820,8 @@
           <caret line="93" column="35" lean-forward="true" selection-start-line="93" selection-start-column="35" selection-end-line="93" selection-end-column="35" />
           <folding>
             <element signature="n#style#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#v-btn#0;n#v-card-actions#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#v-btn#0;n#v-card-actions#0;n#v-card#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -852,7 +852,7 @@
           <caret line="163" column="61" lean-forward="true" selection-start-line="163" selection-start-column="61" selection-end-line="163" selection-end-column="61" />
           <folding>
             <element signature="n#style#0;n#div#1;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#v-toolbar-title#0;n#v-toolbar#0;n#v-card#0;n#v-col#0;n#v-row#0;n#v-container#0;n#v-content#0;n#v-app#0;n#template#0;n#!!top" expanded="true" />
             <element signature="e#4121#4146#0" expanded="true" />
           </folding>
         </state>

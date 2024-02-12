@@ -1,12 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '@/components/home/Index'
-import Pelada from '@/components/Pelada/index'
-import Login from '@/components/auth/components/main'
-import PeladasPublicas from '@/components/Peladas-Publicas/index'
-import AddJogador from '@/components/Pelada/form/add-player'
-import Configuracao from '@/components/configuracao/index'
-import NovaOrganizacao from '@/components/Home/form/add-organizacao'
-// import EditarPelada from '@/components/Home/form/edit-pelada'
+import Home from 'components/home/Index.vue'
+import Pelada from 'components/Pelada/index.vue'
+import Login from 'components/auth/components/main.vue'
+import PeladasPublicas from 'components/Peladas-Publicas/index.vue'
+import AddJogador from 'components/Pelada/form/add-player.vue'
+import Configuracao from 'components/configuracao/index.vue'
+import NovaOrganizacao from 'components/Home/form/add-organizacao.vue'
+// import EditarPelada from 'components/Home/form/edit-pelada'
 
 export default createRouter({
   history: createWebHashHistory(),

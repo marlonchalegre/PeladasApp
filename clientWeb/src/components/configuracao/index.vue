@@ -2,11 +2,11 @@
 <template>
   <v-app id="inspire">
     <my-header></my-header>
-    <v-content style="margin-top: 5%">
+    <v-container style="margin-top: 5%">
       <h1> Configurações </h1>
       <v-container fluid grid-list-md fill-height>
-        <v-layout row wrap>
-          <v-flex xs12 sm4 md5 v-for="configuracao of configuracaoList" v-bind:key="configuracao.id">
+        <v-row row wrap>
+          <v-col xs12 sm4 md5 v-for="configuracao of configuracaoList" v-bind:key="configuracao.id">
 
             <v-card hover>
               <v-toolbar dark color="red">
@@ -50,19 +50,19 @@
               </v-card-actions>
             </v-card>
 
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-container>
-    </v-content>
-    <v-layout row wrap>
-      <v-flex xs12 sm12 md6>
+    </v-container>
+    <v-row row wrap>
+      <v-col xs12 sm12 md6>
         <v-btn absolute dark fab bottom right color="red">
           <v-icon>
             add
           </v-icon>
         </v-btn>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
 
   </v-app>
 </template>

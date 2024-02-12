@@ -1,11 +1,11 @@
 <template>
   <v-app id="inspire">
     <my-header></my-header>
-    <v-content style="margin-top: 10%">
+    <v-container style="margin-top: 10%">
       <h1>Peladas Publicas </h1>
       <v-container fluid grid-list-md fill-height>
-        <v-layout row wrap>
-          <v-flex xs12 sm4 md5 v-for="pelada of peladas" v-bind:key="pelada.id">
+        <v-row row wrap>
+          <v-col xs12 sm4 md5 v-for="pelada of peladas" v-bind:key="pelada.id">
 
             <v-card class="elevation-12">
               <v-toolbar dark color="red">
@@ -20,10 +20,10 @@
                 <h2>{{ pelada.configuracao.limite_gols }} </h2>
               </v-card-text>
             </v-card>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-container>
-    </v-content>
+    </v-container>
   </v-app>
 </template>
 <style scoped>

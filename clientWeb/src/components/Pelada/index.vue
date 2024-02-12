@@ -33,15 +33,15 @@
       </v-data-table>
     </v-container>
 
-    <v-layout row wrap>
-      <v-flex xs12 sm12 md6>
+    <v-row row wrap>
+      <v-col xs12 sm12 md6>
         <v-btn absolute dark fab bottom right color="red">
           <v-icon @click="createdPlayer()">
             add
           </v-icon>
         </v-btn>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-app>
 </template>
 <script>

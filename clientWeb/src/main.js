@@ -2,18 +2,28 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import { createApp } from 'vue'
 
-import App from './App'
+import App from './App.vue'
 import router from './router'
-import { createVuetify } from 'vuetify'
-import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+
+
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import store from './store'
 import StarRating from 'vue-star-rating'
 
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+import 'vuetify/dist/vuetify.min.css'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/lib/components'
+import * as directives from 'vuetify/lib/directives'
+
+__VUE_OPTIONS_API__ = true;
+
+if (process.env.NODE_ENV !== 'production') {
+  __VUE_PROD_DEVTOOLS__ = true;
+} else {
+  __VUE_PROD_DEVTOOLS__ = false;
+}
 
 const app = createApp(App)
 const vuetify = createVuetify({

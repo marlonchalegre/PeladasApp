@@ -2,10 +2,13 @@ version: '3'
 services:
   frontend:
     hostname: frontend
+    environment:
+      - PORT=8080
     build:
       context: ./clientWeb
       dockerfile: Dockerfile
     volumes:
+      - /app/node_modules
       - ./clientWeb:/app
     depends_on:
       - backend
