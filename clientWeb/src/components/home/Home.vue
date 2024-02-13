@@ -3,30 +3,17 @@
     <header-user></header-user>
     <v-container>
       <div style="margin-top: 5%">
-        <h3>Seja Bem vindo: <span>{{ user }}</span></h3>
-        <h3>email: {{ email }} </h3>
-      </div>
-      <div style="margin-top: 5%">
-        <h2>Minhas Peladasss</h2>
+        <h2>Minhas Peladas</h2>
       </div>
       <v-container fluid grid-list-md fill-height>
         <v-row row wrap>
-          <v-col xs12 sm4 md5 v-for="pelada of peladaUser" :key="pelada.nome">
+          <v-col xs12 sm4 md5 v-for="pelada of peladaUser" :key="pelada.id">
             <v-card hover>
               <v-toolbar dark color="white">
-                <v-toolbar-title dark color="red" style="color: red">Nome-Pelada: {{ pelada.nome }} </v-toolbar-title>
+                <v-toolbar-title dark color="red" style="color: red">Pelada: {{ pelada.nome }} </v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
-              <v-img @click="peladaId(pelada.id)"
-                src="https://conteudo.imguol.com.br/c/esporte/6c/2017/09/06/neymar-e-mbappe-se-encontram-pela-primeira-vez-em-treino-do-psg-1504716753721_615x300.jpg"
-                height="200px">
-              </v-img>
-              <v-card-text>
-                <span class="headline black--text">Id: {{ pelada.id }}</span>
-              </v-card-text>
-              <v-card-text>
-                <span class="headline black--text">Dono: {{ pelada.administrador }}</span>
-              </v-card-text>
+              <img @click="peladaId(pelada.id)" :src="pelada.brasao" height="200px">
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn icon>
@@ -71,9 +58,7 @@ import Header from './header/header'
 import { mapState } from 'vuex'
 import router from '../../router/index'
 
-import Swar from 'sweetalert2'
-
-const endpoint = 'api/user-peladas/'
+const endpoint = 'api/organizacao/list'
 const endpointPelada = 'api/pelada/'
 
 export default {
@@ -108,14 +93,14 @@ export default {
     },
     peladaId(id) {
       router.push({
-        path: `/pelada/` + id
+        path: `/organizacao/` + id
       })
     },
     edit(item) {
       alert(`Edit ${item.nome}`)
     },
     remove(id) {
-      Swar({
+      this.$swal({
         title: 'Danger',
         text: 'Tem certeza que quer remover?',
         type: 'warning',
@@ -132,9 +117,9 @@ export default {
             }
           }
           axios.delete(endpointDelete, { headers: auth.headers })
-          Swar('Pelada removida!', '', 'success')
-        } else if (result.dismiss === Swar.DismissReason.cancel) {
-          Swar('Operação cancelada', '', 'error')
+          this.$swal('Pelada removida!', '', 'success')
+        } else if (result.dismiss === this.$swal.DismissReason.cancel) {
+          this.$swal('Operação cancelada', '', 'error')
         }
       })
     }

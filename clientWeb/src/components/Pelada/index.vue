@@ -52,10 +52,6 @@ import axios from 'axios'
 import router from '../../router/index'
 import Star from 'vue-star-rating'
 
-import Swar from 'sweetalert2'
-
-const endpoint = 'api/user-peladas/'
-
 const endpointPelada = 'api/pelada/'
 export default {
   components: {
@@ -96,7 +92,7 @@ export default {
       alert(`Edit ${item.nome}`)
     },
     remove(item) {
-      Swar({
+      this.$swal({
         title: 'Danger',
         text: 'Tem certeza que quer cancelar?',
         type: 'warning',
@@ -105,9 +101,9 @@ export default {
         cancelButtonText: 'No, keep it'
       }).then(result => {
         if (result.value) {
-          Swar('Deleted!', 'Your imaginary file has been deleted.', 'success')
-        } else if (result.dismiss === Swar.DismissReason.cancel) {
-          Swar('Cancelled', 'Your imaginary file is safe :)', 'error')
+          this.$swal('Deleted!', 'Your imaginary file has been deleted.', 'success')
+        } else if (result.dismiss === this.$swal.DismissReason.cancel) {
+          this.$swal('Cancelled', 'Your imaginary file is safe :)', 'error')
         }
       })
       const endpointDelete = 'api/jogador/' + item

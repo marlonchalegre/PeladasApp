@@ -33,8 +33,6 @@
 import axios from 'axios'
 import router from '../../../router/index'
 
-import Swar from 'sweetalert2'
-
 const endpointPelada = 'http://localhost:8000/api/peladas/'
 export default {
   components: {},
@@ -80,7 +78,7 @@ export default {
       axios
         .post(endpointPelada, data, { headers: authe.headers })
         .then(response => {
-          Swar({
+          this.$swal({
             title: 'Sucesso',
             text: 'A pelada foi cadastrada',
             confirmButtonText: 'Ok!'

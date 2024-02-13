@@ -22,7 +22,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn v-on:click.prevent="sigin" color="white" style="color: red">Login</v-btn>
+                <v-btn v-on:click.prevent="sigin" color="red">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Header from './header/header'
 
 export default {

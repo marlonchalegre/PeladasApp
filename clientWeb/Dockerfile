@@ -7,8 +7,6 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-RUN apk add g++ make py3-pip
-
 # Install dependencies
 RUN npm install
 

@@ -31,8 +31,6 @@ import axios from 'axios'
 import router from '../../../router/index'
 import Star from 'vue-star-rating'
 
-import Swar from 'sweetalert2'
-
 const endpointAddJogador = 'api/jogadores/';
 export default {
   components: {
@@ -89,7 +87,7 @@ export default {
       };
       axios.post("api/jogadores/", data, { headers: authe.headers })
         .then((response) => {
-          Swar({
+          this.$swal({
             title: 'Sucesso',
             text: 'O jogador foi cadastrado',
             confirmButtonText: 'Ok!',
@@ -98,7 +96,7 @@ export default {
             path: '/pelada/' + id,
           })
         }).catch(err => {
-          Swar({
+          this.$swal({
             title: 'Erro',
             text: 'Ocorreu um erro ao cadastrar o jogador',
             confirmButtonText: 'Ok!',

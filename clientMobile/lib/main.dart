@@ -12,10 +12,7 @@ void main() {
   runApp(MaterialApp(
     title: 'Navigation Basics',
     home: MyApp(),
-    theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.red,
-        accentColor: Colors.white),
+    theme: ThemeData(brightness: Brightness.light, primaryColor: Colors.red, accentColor: Colors.white),
   ));
 }
 
@@ -42,9 +39,7 @@ class MyApp extends StatelessWidget {
       appBar: new AppBar(
         backgroundColor: Colors.white,
         title: Center(
-          child: new Text("Peladas API",
-              style: new TextStyle(
-                  color: Colors.red, fontWeight: FontWeight.normal)),
+          child: new Text("Peladas API", style: new TextStyle(color: Colors.red, fontWeight: FontWeight.normal)),
         ),
         actions: <Widget>[
           IconButton(
@@ -81,10 +76,7 @@ class MyApp extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              _buildNameWidget(snapshot.data[index].nome),
-                              _iconWidget()
-                            ],
+                            children: <Widget>[_buildNameWidget(snapshot.data[index].nome), _iconWidget()],
                           ),
                         ),
                       ],
@@ -112,8 +104,7 @@ getToken() async {
 Future<String> fetchUsersFromGitHub(String username, String senha) async {
   Map<String, String> body = {"username": username, "password": senha};
 
-  final response =
-      await http.post('http://192.168.0.107:4000/api/login', body: body);
+  final response = await http.post('http://192.168.0.107:4000/api/login', body: body);
   String t = json.decode(response.body.toString())["token"].toString();
   if (response.statusCode == 200) {
     String t = json.decode(response.body.toString())["token"].toString();
@@ -137,8 +128,7 @@ class Api {
 
   Future<PeladaDetalhe> peladaDetalhe(String token, int id) async {
     String url = DEV_ENDPOINT + API_ENDPOINT + 'pelada/' + id.toString();
-    final response =
-        await http.get(url, headers: {'authorization': "Token " + token});
+    final response = await http.get(url, headers: {'authorization': "Token " + token});
     var data = json.decode(response.body.toString());
     String nome = data["nome"];
     String username = data["dono"]["username"];
@@ -151,24 +141,18 @@ class Api {
     List<Jogador> players = new List();
     for (var j in jogadores) {
       Jogador jogador = new Jogador(
-          id: j['id'] ?? "null",
-          nome: j['nome'] ?? "null",
-          rating: j['rating'] ?? "null",
-          email: j['email'] ?? "null");
+          id: j['id'] ?? "null", nome: j['nome'] ?? "null", rating: j['rating'] ?? "null", email: j['email'] ?? "null");
       players.add(jogador);
     }
-    PeladaDetalhe peladaDetalhe = new PeladaDetalhe(
-        nome: nome, dono: dono, jogadores: players, id: data['id']);
+    PeladaDetalhe peladaDetalhe = new PeladaDetalhe(nome: nome, dono: dono, jogadores: players, id: data['id']);
     return peladaDetalhe;
   }
 
   Future<User> usuario(String username, String password) async {
     Map<String, String> body = {"username": username, "password": password};
-    final response =
-        await http.post(DEV_ENDPOINT + API_ENDPOINT + 'login', body: body);
+    final response = await http.post(DEV_ENDPOINT + API_ENDPOINT + 'login', body: body);
     String token = json.decode(response.body.toString())["token"].toString();
-    Response r = await get(DEV_ENDPOINT + API_ENDPOINT + "user/",
-        headers: {'authorization': "Token " + token});
+    Response r = await get(DEV_ENDPOINT + API_ENDPOINT + "user/", headers: {'authorization': "Token " + token});
     int id = (json.decode(r.body)["id"]);
     String user = (json.decode(r.body)["username"]);
     String email = ((json.decode(r.body)["email"]));
@@ -180,16 +164,11 @@ class Api {
     return u;
   }
 
-  Future<bool> postJogador(
-      String nome, int rating, String pelada, String token) async {
-    Map<String, String> body = {
-      "nome": nome,
-      "rating": rating.toString(),
-      "pelada": pelada.toString()
-    };
+  Future<bool> postJogador(String nome, int rating, String pelada, String token) async {
+    Map<String, String> body = {"nome": nome, "rating": rating.toString(), "pelada": pelada.toString()};
 
-    final response = await http.post(DEV_ENDPOINT + API_ENDPOINT + 'jogadores/',
-        body: body, headers: {'Authorization': "Token " + token});
+    final response = await http
+        .post(DEV_ENDPOINT + API_ENDPOINT + 'jogadores/', body: body, headers: {'Authorization': "Token " + token});
     if (response.statusCode == 201) {
       return true;
     }
@@ -197,8 +176,8 @@ class Api {
   }
 
   Future<List<Pelada>> userPeladas(String token) async {
-    Response r = await get(DEV_ENDPOINT + API_ENDPOINT + "user-peladas/",
-        headers: {'Authorization': "Token " + token});
+    Response r =
+        await get(DEV_ENDPOINT + API_ENDPOINT + "organizacao/list/", headers: {'Authorization': "Token " + token});
     if (r.statusCode == 200) {
       List responseJson = json.decode(r.body.toString());
       List<Pelada> userList = createPeladaList(responseJson);
@@ -209,12 +188,7 @@ class Api {
   }
 
   Future<Configuracao> getConfiguracao(String token, int id) async {
-    Response r = await get(
-        DEV_ENDPOINT +
-            API_ENDPOINT +
-            "pelada/" +
-            id.toString() +
-            '/configuracao',
+    Response r = await get(DEV_ENDPOINT + API_ENDPOINT + "pelada/" + id.toString() + '/configuracao',
         headers: {'Authorization': "Token " + token});
     if (r.statusCode == 200) {
       var responseJson = json.decode(r.body.toString());
@@ -269,8 +243,7 @@ List<Pelada> createPeladaList(List data) {
         qtd_jogadores: qtd_jogadores,
         tipo_sorteio: tipo_sorteio);
 
-    Pelada pelada =
-        new Pelada(id: id, nome: name, configuracao: configuracao, dono: dono);
+    Pelada pelada = new Pelada(id: id, nome: name, configuracao: configuracao, dono: dono);
     list.add(pelada);
   }
   return list;

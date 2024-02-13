@@ -19,6 +19,14 @@ from rest_framework import viewsets, authentication, permissions
 
 from django.http import JsonResponse
 
+from django.conf import settings
+import logging
+
+fmt = getattr(settings, 'LOG_FORMAT', None)
+lvl = getattr(settings, 'LOG_LEVEL', logging.DEBUG)
+
+logging.basicConfig(format=fmt, level=lvl)
+
 # Create your views here.
 
 class OrganizacaoViewSet(mixins.FilteringAndOrderingMixin, generics.ListCreateAPIView ):
@@ -27,14 +35,14 @@ class OrganizacaoViewSet(mixins.FilteringAndOrderingMixin, generics.ListCreateAP
     name = 'pelada-list'
     serializer_class = serializers.OrganizacaoSerializers
     model = Organizacao
-    filter_fields = ('admin__username',)
+    filter_fields = ('administrador__username',)
     search_fields = ('nome',)
     queryset = Organizacao.objects.all()
 
 
 class OrganizacaoDetailViewSet(mixins.IsOwnerPeladaMixin,  generics.RetrieveUpdateDestroyAPIView):
 
-    name = 'pelada-detail'
+    name = 'organizacao-detail'
     queryset =  Organizacao.objects.all()
     serializer_class = serializers.PeladaSerializerDetail
     model = Organizacao
@@ -144,8 +152,9 @@ class JogadoresList(generics.ListCreateAPIView):
 
 class OrganizacaoListUser(generics.ListCreateAPIView):
     authentication = (authentication.SessionAuthentication)
-    serializer_class = serializers.OrganizacaoSerializers
+    serializer_class = serializers.OrganizacaoListSerializers
     queryset = Organizacao.objects.all()
+    
     def list(self, request, *args, **kwargs):
         if request.user.is_anonymous:
              return Response(status=status.HTTP_401_UNAUTHORIZED,
@@ -154,13 +163,13 @@ class OrganizacaoListUser(generics.ListCreateAPIView):
             user = self.request.user
             organizacoes = Organizacao.objects.filter(administrador=user)
         return Response(status=status.HTTP_200_OK,
-                        data=serializers.OrganizacaoSerializers(organizacoes, many=True, context={'request': request}).data)
+                        data=serializers.OrganizacaoListSerializers(organizacoes, many=True, context={'request': request}).data)
 
 
 
     def validate(self, data):
         errors = {}
-        admin = data.get('admin')
+        admin = data.get('administrador')
 
         if self.request.user != admin:
             errors['error'] = 'O usuario não pode criar'
