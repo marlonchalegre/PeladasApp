@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import Token from './services/token'
+import Token from './token'
 
 const userName = window.sessionStorage.getItem('username')
 const userEmail = window.sessionStorage.getItem('email')

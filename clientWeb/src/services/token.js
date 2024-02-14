@@ -42,5 +42,8 @@ export default {
   },
   getAuthorizationHeader() {
     return `Bearer ${this.token}`
+  },
+  isAuthenticated() {
+    return !!this.token
   }
 }

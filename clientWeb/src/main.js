@@ -9,7 +9,7 @@ import router from './router'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import store from './store'
+import store from './services/store'
 import StarRating from 'vue-star-rating'
 
 import 'vuetify/dist/vuetify.min.css'

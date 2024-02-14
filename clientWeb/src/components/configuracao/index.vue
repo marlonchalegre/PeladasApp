@@ -90,7 +90,7 @@ export default {
   },
 
   created() {
-    const token_export = sessionStorage.getItem("token");
+    const token_export = sessionStorage.getItem("token"); //TODO replace all sessionStorage with vuex with the service/token getAuthHeader
     let authe = {
       headers: {
         Authorization: 'Token ' + token_export
