@@ -44,7 +44,7 @@ class OrganizacaoDetailViewSet(mixins.IsOwnerPeladaMixin,  generics.RetrieveUpda
 
     name = 'organizacao-detail'
     queryset =  Organizacao.objects.all()
-    serializer_class = serializers.PeladaSerializerDetail
+    serializer_class = serializers.OrganizacaoSerializerDetail
     model = Organizacao
 
 class JogadorDetailViewSet(mixins.IsPeladaMixin,generics.RetrieveUpdateDestroyAPIView):

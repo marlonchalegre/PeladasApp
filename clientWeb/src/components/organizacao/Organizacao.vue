@@ -1,15 +1,117 @@
 <template>
+  <Header></Header>
   <v-app id="inspire">
-    <my-header></my-header>
-
     <div style="margin-top: 5%">
       <h1>Detalhes da Sua Pelada</h1>
-      <h2>Nome: {{ peladaUserId.nome }}</h2>
     </div>
-
-    <h1>Jogadores Da sua pelada</h1>
-
     <v-container>
+      <v-row justify="space-between">
+        <v-btn fab dark right color="primary">
+          Criar nova pelada
+        </v-btn>
+        <v-btn fab dark right color="primary">
+          Gerenciar jogadores
+        </v-btn>
+      </v-row>
+
+      <v-col>
+        <div>
+          <h2>Próxima pelada</h2>
+        </div>
+        <v-col cols="6">
+          <v-card>
+            <v-card-text>
+              <div>
+                <h3>Local</h3>
+                <p>Local</p>
+
+                <h3>Local</h3>
+                <p>data</p>
+              </div>
+            </v-card-text>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn icon>
+                  <v-icon >
+                    visibility
+                  </v-icon>
+                </v-btn>
+                <v-btn icon>
+                  <v-icon >edit</v-icon>
+                </v-btn>
+                <v-btn icon>
+                  <v-icon>delete</v-icon>
+                </v-btn>
+              </v-card-actions>
+          </v-card>
+        </v-col>
+        <div>
+          <h2>Últimas 10 peladas</h2>
+        </div>
+        <v-row no-gutters>
+
+          <v-col>
+            <v-card>
+              <v-card-text>
+                <div>
+                  <h3>Local</h3>
+                  <p>Local</p>
+
+                  <h3>Local</h3>
+                  <p>data</p>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card>
+              <v-card-text>
+                <div>
+                  <h3>Local</h3>
+                  <p>Local</p>
+
+                  <h3>Local</h3>
+                  <p>data</p>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+
+          <v-responsive width="100%"></v-responsive>
+
+          <v-col>
+            <v-card>
+              <v-card-text>
+                <div>
+                  <h3>Local</h3>
+                  <p>Local</p>
+
+                  <h3>Local</h3>
+                  <p>data</p>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+
+          <v-col>
+            <v-card>
+              <v-card-text>
+                <div>
+                  <h3>Local</h3>
+                  <p>Local</p>
+
+                  <h3>Local</h3>
+                  <p>data</p>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-container>
+
+
+    <!-- <v-container>
       <v-data-table :headers="headers" :items="peladaUserId.jogadores">
         <template slot="items" slot-scope="props">
           <td>{{ props.item.id }}</td>
@@ -31,9 +133,9 @@
           </td>
         </template>
       </v-data-table>
-    </v-container>
+    </v-container> -->
 
-    <v-row row wrap>
+    <!-- <v-row row wrap>
       <v-col xs12 sm12 md6>
         <v-btn absolute dark fab bottom right color="red">
           <v-icon @click="createdPlayer()">
@@ -41,21 +143,22 @@
           </v-icon>
         </v-btn>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-app>
 </template>
 <script>
 import response from './form/add-player'
 
-import Header from '../home/header/header'
+import Header from '../home/header/header.vue'
 import axios from 'axios'
 import router from '../../router/index'
 import Star from 'vue-star-rating'
 
-const endpointPelada = 'api/pelada/'
+const endpointOrganizacao = 'api/organizacao/'
+
 export default {
   components: {
-    'my-header': Header,
+    Header,
     'my-star': Star
   },
   props: ['id'],
@@ -133,7 +236,7 @@ export default {
         Authorization: 'Token ' + token_export
       }
     }
-    axios.get(`${endpointPelada}${this.getIdRouter}`, { headers: authe.headers }).then(response => {
+    axios.get(`${endpointOrganizacao}${this.getIdRouter}`, { headers: authe.headers }).then(response => {
       this.peladaUserId = response.data
     })
   }

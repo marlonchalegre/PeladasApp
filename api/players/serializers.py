@@ -57,10 +57,7 @@ class TimesSerializerDetail(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PeladaSerializerDetail(serializers.ModelSerializer):
+class OrganizacaoSerializerDetail(OrganizacaoListSerializers):
     jogadores = JogadoresSerializerDetail(many=True, read_only=True)
     administrador = AdminSerializerDetail()
-
-    class Meta:
-        model = Organizacao
-        exclude = ('configuracao',)
+    peladas = PeladaSerializers(many=True, read_only=True)

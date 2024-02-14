@@ -1,6 +1,6 @@
 <template>
+  <Header></Header>
   <v-app id="inspire">
-    <header-user></header-user>
     <v-container>
       <div style="margin-top: 5%">
         <h2>Minhas Peladas</h2>
@@ -54,7 +54,7 @@
 
 <script>
 import axios from 'axios'
-import Header from './header/header'
+import Header from './header/header.vue'
 import { mapState } from 'vuex'
 import router from '../../router/index'
 
@@ -63,7 +63,7 @@ const endpointPelada = 'api/pelada/'
 
 export default {
   components: {
-    'header-user': Header
+    Header
   },
   data() {
     return {

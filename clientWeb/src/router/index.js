@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from 'components/home/Home.vue'
-import Pelada from 'components/Pelada/index.vue'
+import Pelada from 'components/organizacao/Organizacao.vue'
 import Login from 'components/auth/components/main.vue'
 import PeladasPublicas from 'components/Peladas-Publicas/index.vue'
 import AddJogador from 'components/Pelada/form/add-player.vue'
