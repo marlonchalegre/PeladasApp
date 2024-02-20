@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
-    HTTP_404_NOT_FOUND,
+    HTTP_201_CREATED,
     HTTP_200_OK
 )
 from rest_framework.response import Response
@@ -29,6 +29,19 @@ class UserViewSet(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         return self.request.user
 
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes((AllowAny,))
+def create_user(request):
+    new_user = serializers.UserSerializerDetail(data=request.data)
+    if new_user.is_valid():
+        user = new_user.create(request.data)
+        user.set_password(request.data['password'])
+        user.save()
+        return Response({'message':'User {} created'.format(user.username)}, 
+                                           status=HTTP_201_CREATED)
+    else:
+        return Response({'error': 'User not created'}, status=HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 @api_view(["POST"])
@@ -43,14 +56,12 @@ def login(request):
     user = authenticate(username=username, password=password)
     if not user:
         return Response({'error': 'Invalid Credentials'},
-                        status=HTTP_404_NOT_FOUND)
+                        status=HTTP_400_BAD_REQUEST)
+    
     token, _ = Token.objects.get_or_create(user=user)
-    return Response({
-        'token': token.key,
-        'user_name': user.username,
-        'user_email': user.email,
-        'user_id': user.id
-
-            },
-                    status=HTTP_200_OK)
+    return Response({'token': token.key,
+                    'user_name': user.username,
+                    'user_email': user.email,
+                    'user_id': user.id},
+          status=HTTP_200_OK)
 

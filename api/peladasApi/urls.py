@@ -39,9 +39,10 @@ urlpatterns = [
     path('api/time/<int:pk>', TimeDetailViewSet.as_view(), name='time-detail'),
     path('api/user/<int:pk>', views_user.UserDetailViewSet.as_view(), name='user-detail'),
     path('api/user/', views_user.UserViewSet.as_view(), name='user-detail'),
+    path('api/user/new', views_user.create_user, name='user-detail'),
     path('api/docs/', schema_view),
     path('api/configuracao/', ConfiguracaoList.as_view(), name='configuracao-list'),
-    path('api/jogadores/', JogadoresList.as_view(), name='configuracao-list'),
+    path('api/jogadores/', JogadoresList.as_view(), name='jogadores-list'),
     path('api/times/', TimeList.as_view(), name='configuracao-list'),
     path('api/pelada/<int:pk>/create_times/', CreateTimes.as_view({'post':'create_times'}), name="create-times")
 ]

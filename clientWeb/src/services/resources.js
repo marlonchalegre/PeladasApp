@@ -5,6 +5,6 @@ export class Token {
     const headers = {
       'Content-Type': 'application/json',
     };
-    return  axios.post('/api/login',{username,password},{headers:headers});
+    return  axios.post('api/login',{username,password},{headers:headers});
   }
 }

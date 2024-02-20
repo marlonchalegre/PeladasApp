@@ -3,9 +3,6 @@
   <v-toolbar dark color="orange">
     <v-toolbar-title class="red--text">Peladas App</v-toolbar-title>
     <v-toolbar-items>
-      <v-btn dark color="white" style="color:red">
-        Jogadores
-      </v-btn>
       <v-btn @click="logout()" dark color="white" style="color:red">
         Sair
       </v-btn>

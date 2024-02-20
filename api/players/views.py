@@ -124,7 +124,7 @@ class ConfiguracaoList(generics.ListCreateAPIView):
         return Response(status=status.HTTP_200_OK,
                         data=serializers.ConfiguracaoSerializerDetail(configuracoes, many=True, context={'request': request}).data)
 
-class JogadoresList(generics.ListCreateAPIView):
+class JogadoresList(generics.ListAPIView):
     filter_backends = (
         djangofilters.DjangoFilterBackend,
         filters.SearchFilter,
@@ -132,23 +132,21 @@ class JogadoresList(generics.ListCreateAPIView):
     )
 
     search_fields = ('nome',)
-    filter_fields = ('rating',)
     serializer_class = serializers.JogadoresSerializerDetail
     queryset =  Jogador.objects.all()
 
+    # def get(self, request, *args, **kwargs):
+    #     queryset = self.filter_queryset(self.get_queryset())
+    #     user = self.request.user
+    #     queryset = queryset.filter(nome__icontains=user)
+    #     page = self.paginate_queryset(queryset)
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        user = self.request.user
-        queryset = queryset.filter(pelada__admin=user)
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
+    #     if page is not None:
+    #         serializer = self.get_serializer(page, many=True)
+    #         return self.get_paginated_response(serializer.data)
 
-        serializer = self.get_serializer(queryset, many=True)
-        jogador = Jogador.objects.filter(pelada__admin=user)
-        return Response(serializer.data)
+    #     serializer = self.get_serializer(queryset, many=True)
+    #     return Response(serializer.data)
 
 class OrganizacaoListUser(generics.ListCreateAPIView):
     authentication = (authentication.SessionAuthentication)

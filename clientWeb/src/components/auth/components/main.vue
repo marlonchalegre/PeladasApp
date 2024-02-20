@@ -12,7 +12,7 @@
             <div v-if=!sigin>
               error
             </div>
-            <v-form>
+            <v-form  @submit.prevent="sigin">
               <v-text-field prepend-icon="person" v-model="user.username" name="username" label="Login" type="text"
                 :rules="nameRules"></v-text-field>
               <v-text-field id="password" prepend-icon="lock" v-model="user.password" name="password" label="Password"

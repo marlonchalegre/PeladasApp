@@ -2,29 +2,29 @@
   <Header></Header>
   <v-container>
     <div style="margin-top: 5%">
-      <h2>Minhas Peladas</h2>
+      <h2>Meus Grupos</h2>
     </div>
     <v-container fluid grid-list-md fill-height>
       <v-row row wrap>
-        <v-col xs12 sm4 md5 v-for="pelada of peladaUser" :key="pelada.id">
+        <v-col xs12 sm4 md5 v-for="organizacao of organizacaoUser" :key="organizacao.id">
           <v-card hover>
             <v-toolbar dark color="white">
-              <v-toolbar-title dark color="red" style="color: red">Pelada: {{ pelada.nome }} </v-toolbar-title>
+              <v-toolbar-title dark color="red" style="color: red">Grupo: {{ organizacao.nome }} </v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
-            <img @click="peladaId(pelada.id)" :src="pelada.brasao" height="200px">
+            <img @click="organizacaoId(organizacao.id)" :src="organizacao.brasao" height="200px">
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn icon>
-                <v-icon @click="peladaId(pelada.id)">
+                <v-icon @click="organizacaoId(organizacao.id)">
                   visibility
                 </v-icon>
               </v-btn>
               <v-btn icon>
-                <v-icon @click="edit(pelada.id)">edit</v-icon>
+                <v-icon @click="edit(organizacao.id)">edit</v-icon>
               </v-btn>
               <v-btn icon>
-                <v-icon @click="remove(pelada.id)">delete</v-icon>
+                <v-icon @click="remove(organizacao.id)">delete</v-icon>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -35,7 +35,7 @@
       </v-row>
       <v-col xs12 sm12 md6>
         <v-btn dark fab bottom right color="red">
-          <v-icon @click="criarPelada()">
+          <v-icon @click="criarOrganizacao()">
             add
           </v-icon>
         </v-btn>
@@ -57,7 +57,7 @@ import { mapState } from 'vuex'
 import router from '../../router/index'
 
 const endpoint = 'api/organizacao/list'
-const endpointPelada = 'api/pelada/'
+const endpointOrganizacao = 'api/organizacao/'
 
 export default {
   components: {
@@ -65,9 +65,9 @@ export default {
   },
   data() {
     return {
-      peladaUser: [],
-      pelada: '',
-      peladaUserId: [],
+      organizacaoUser: [],
+      organizacao: '',
+      organizacaoUserId: [],
       cards: [
         {
           title: 'Pre-fab homes',
@@ -84,12 +84,12 @@ export default {
     })
   },
   methods: {
-    criarPelada() {
+    criarOrganizacao() {
       router.push({
         path: '/organizacao/new'
       })
     },
-    peladaId(id) {
+    organizacaoId(id) {
       router.push({
         path: `/organizacao/` + id
       })
@@ -107,7 +107,7 @@ export default {
         cancelButtonText: 'No, keep it'
       }).then(result => {
         if (result.value) {
-          const endpointDelete = endpointPelada + id
+          const endpointDelete = endpointOrganizacao + id
           const token_export = sessionStorage.getItem('token')
           let auth = {
             headers: {
@@ -130,7 +130,7 @@ export default {
       }
     }
     axios.get(endpoint, { headers: authe.headers }).then(response => {
-      this.peladaUser = response.data
+      this.organizacaoUser = response.data
     })
   },
 

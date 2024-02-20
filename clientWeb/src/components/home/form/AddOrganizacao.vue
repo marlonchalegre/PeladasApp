@@ -2,11 +2,9 @@
   <v-app id="inspire">
     <div class="text-xs-center">
     </div>
-
     <v-toolbar dark color="white">
       <v-spacer></v-spacer>
-      <v-toolbar-title style="margin: 43%" class="red--text">Adicionar Organizacao</v-toolbar-title>
-
+      <v-toolbar-title style="margin: 43%" class="red--text">Adicionar Organização</v-toolbar-title>
     </v-toolbar>
     <v-container fluid fill-height>
       <v-row align-center justify-center>
@@ -14,8 +12,6 @@
           <v-form v-model="valid">
             <v-text-field v-model="dados.name" :rules="nameRules" :counter="10" label="Name" required></v-text-field>
             <v-file-input accept="image/*" prepend-icon="camera" v-model="dados.image"></v-file-input>
-            <!-- <v-file-input v-model="dados.image" :rules="[v => !!v || 'Imagem é obrigatória', v => validateImageSize(v)]"
-              accept="image/*" label="Imagem" required></v-file-input> -->
           </v-form>
           <v-btn dark color="red" style="color:white" @click="postData()">
             Adicionar
@@ -55,7 +51,7 @@ export default {
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
         reader.onerror = (error) => reject(error);
-    });
+      });
     },
     async postData() {
       const token_export = sessionStorage.getItem('token')
@@ -87,27 +83,7 @@ export default {
         })
         .catch(err => { })
     },
-
-    // validateImageSize(file) {
-    //   console.log(file)
-    //   if (file) {
-    //     const image = new Image()
-    //     image.src = URL.createObjectURL(file)
-    //     return new Promise((resolve, reject) => {
-    //       image.onload = () => {
-    //         if (image.width <= 200 && image.height <= 100) {
-    //           resolve(true)
-    //         } else {
-    //           reject('A imagem deve ter no máximo 200 x 100 pixels')
-    //         }
-    //       }
-    //       image.onerror = () => {
-    //         reject('Erro ao carregar a imagem')
-    //       }
-    //     })
-    //   }
-    //   return true
-    // },
+    //TODO validate brasao size
   }
 }
 </script>
