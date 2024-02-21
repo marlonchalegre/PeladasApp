@@ -11,9 +11,6 @@
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit"
   },
-  "alias": {
-    "components": "./src/components"
-  },
   "dependencies": {
     "axios": "^1.6.7",
     "lodash": "^4.17.21",
