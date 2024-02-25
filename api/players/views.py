@@ -21,6 +21,7 @@ from django.http import JsonResponse
 
 from django.conf import settings
 import logging
+from django.contrib.auth.models import User
 
 fmt = getattr(settings, 'LOG_FORMAT', None)
 lvl = getattr(settings, 'LOG_LEVEL', logging.DEBUG)
@@ -53,6 +54,24 @@ class JogadorDetailViewSet(mixins.IsPeladaMixin,generics.RetrieveUpdateDestroyAP
     queryset =  Jogador.objects.all()
     serializer_class = serializers.JogadoresSerializerDetail
     model = Jogador
+
+class JogadorPeladaViewSet(mixins.IsOwnerPelada, generics.RetrieveUpdateDestroyAPIView):
+
+    name = 'jogador-pelada'
+    queryset =  Jogador.objects.all()
+    serializer_class = serializers.JogadoresSerializerDetail
+    model = Jogador
+
+    def post(self, request, *args, **kwargs):
+        org_id = self.get_queryset().get(pk=kwargs['pk'])
+        user_id = self.get_queryset().get(pk=kwargs['user_id'])
+        
+        user = User.objects.get(pk=user_id)
+
+        jogador = Jogador.objects.create(nome=user.username, organizacao=org_id)
+        jogador.save()
+        return Response(status=status.HTTP_201_CREATED, data=serializers.JogadoresSerializerDetail(jogador, context={'request': request}).data)
+
 
 class TimeDetailViewSet(mixins.IsPeladaMixin,generics.RetrieveUpdateDestroyAPIView):
 

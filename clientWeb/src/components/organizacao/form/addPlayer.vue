@@ -12,10 +12,8 @@
       <v-row align-center justify-center>
         <v-col xs12 sm8 md4>
           <v-form v-model="valid">
-            <v-autocomplete clearable :loading="isLoading" :items="playersList" :search-input.sync="search" hide-details
-              item-text="name" item-value="id" label="Search for a Game..." solo-inverted></v-autocomplete>
-            <!-- <v-text-field v-model="dados.name" :rules="nameRules" :counter="10" label="Name" required></v-text-field> -->
-            <!-- <my-star v-bind:star-size="30" active-color="red" v-model="dados.raiting"></my-star> -->
+            <v-autocomplete v-model:search-input="search" :items="playersList" :loading="isLoading"
+              @update:search="onInput" no-filter item-title="name" item-value="name" return-object />
           </v-form>
           <v-btn dark color="red" style="color:white" @click="postData()">
             Adicionar
@@ -52,9 +50,10 @@
 import axios from 'axios'
 import router from '../../../router/index'
 import Star from 'vue-star-rating'
-import _ from "lodash";
+import _ from "lodash"
+import { ref } from 'vue'
 
-const endpointJogadores = 'api/jogadores/';
+const endpointJogadores = 'api/user/list/'
 const playersEndpoint = 'api/organizacao/'
 
 export default {
@@ -64,11 +63,11 @@ export default {
   data: () => ({
     players: [],
     playersList: [],
-    isLoading: false, // variable to determine if the results are still being fetched from the API
-    search: null, // this is where the query will be stored
     valid: false,
     select: null,
     alert: false,
+    search: ref(''),
+    isLoading: ref(false),
     dados: {
       name: '',
       raiting: null,
@@ -105,45 +104,54 @@ export default {
   props: ['id'],
   computed: {},
   methods: {
+    onInput(val) {
+      if (!val) return false
+
+      // _.debounce(function (val) {
+      console.log("(debounce) Searching for players...");
+      this.isLoading.value = true;
+      let searchQuery = encodeURI("?search=" + val); // URI encode the query so it is able to be fetched properly
+      this.searchPlayers(searchQuery);
+      // }, 250)
+    },
     searchPlayers(params = "") {
       console.log("Searching for players...");
       this.axios
         .get(endpointJogadores + params)
         .then(response => {
-          this.playersList = response.data;
-          this.isLoading = false;
+          this.playersList = response.data.map(player => {
+            return {
+              id: player.id,
+              name: player.username
+            };
+          });
+          this.isLoading.value = false;
         })
         .catch(e => {
           console.error(e); // display error message
         });
     },
-    searchPlayers(query) {
-      let searchQuery = encodeURI("?nome=" + query); // URI encode the query so it is able to be fetched properly
-      this.searchPlayers(searchQuery);
-    },
     postData() {
       const id = this.id;
+      const user_id = this.search.id;
+
+      console.log(this.search)
       const token_export = sessionStorage.getItem("token");
       const authe = {
         headers: {
           Authorization: 'Token ' + token_export
         }
       };
-      const data = {
-        "nome": this.dados.name,
-        "rating": this.dados.raiting,
-        "pelada": this.getIdRouter
-      };
-      axios.post("api/jogadores/", data, { headers: authe.headers })
+      axios.post(`api/pelada/${id}/jogador/${user_id}`, {}, { headers: authe.headers })
         .then((response) => {
           this.$swal({
             title: 'Sucesso',
             text: 'O jogador foi cadastrado',
             confirmButtonText: 'Ok!',
           });
-          router.push({
-            path: '/pelada/' + id,
-          })
+          // router.push({
+          //   path: '/pelada/' + id,
+          // })
         }).catch(err => {
           this.$swal({
             title: 'Erro',

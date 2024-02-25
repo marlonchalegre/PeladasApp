@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from rest_framework import generics
+from players import mixins
+from rest_framework import filters, generics
 from django.contrib.auth.models import User
 from users import serializers
 from django.contrib.auth import authenticate
@@ -12,6 +13,7 @@ from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_200_OK
 )
+from django_filters import rest_framework as djangofilters
 from rest_framework.response import Response
 # Create your views here.
 class UserDetailViewSet(generics.RetrieveUpdateDestroyAPIView):
@@ -28,6 +30,17 @@ class UserViewSet(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return self.request.user
+    
+class ListUserViewSet(mixins.IsOwnerPeladaMixin, generics.ListAPIView):
+    queryset = User.objects.all()
+    filter_backends = (
+        djangofilters.DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    )
+
+    search_fields = ('username',)
+    serializer_class = serializers.ListUserSerializerDetail
 
 @csrf_exempt
 @api_view(["POST"])
